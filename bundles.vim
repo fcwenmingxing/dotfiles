@@ -102,4 +102,13 @@ Bundle 'Lokaltog/vim-distinguished'
 Bundle 'chriskempson/vim-tomorrow-theme'
 Bundle 'fisadev/fisa-vim-colorscheme'
 
+"--------------
+" a.vim jump between *.cpp and *.h 
+"--------------
+Bundle 'a.vim'
+"--------------
+" header.vim :a header is added to the top when a file is created
+"--------------
+Bundle 'fcwenmingxing/header.vim'
+
 filetype plugin indent on     " required!

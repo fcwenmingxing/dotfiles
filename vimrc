@@ -12,25 +12,30 @@ syntax on
 "--------
 " Vim UI
 "--------
-" color scheme
-set background=dark
-color solarized
+" color scheme 
+"set background=dark
+"color solarized
+colorscheme darkblue
 
-" highlight current line
-au WinLeave * set nocursorline nocursorcolumn
-au WinEnter * set cursorline cursorcolumn
-set cursorline cursorcolumn
+"---- highlight current line
+"au WinLeave * set nocursorline nocursorcolumn
+"au WinEnter * set cursorline cursorcolumn
+"set cursorline cursorcolumn "光标下划线
 
-" search
+"---- search
 set incsearch
+set hlsearch
 "set highlight 	" conflict with highlight current line
-set ignorecase
+"set ignorecase
 set smartcase
 
-" editor settings
+"---- editor settings
 set history=1000
 set nocompatible
-set nofoldenable                                                  " disable folding"
+"set nofoldenable                                                  " disable folding"
+let mapleader=";"
+set spr                                                           " vsp left window
+set fdm=indent                                                    " 代码折叠 zi打开/折叠, zm折叠
 set confirm                                                       " prompt when existing from an unsaved file
 set backspace=indent,eol,start                                    " More powerful backspacing
 set t_Co=256                                                      " Explicitly tell vim that the terminal has 256 colors "
@@ -43,11 +48,12 @@ set showmatch                                                     " show matchin
 set showcmd                                                       " show typed command in status bar
 set title                                                         " show file in titlebar
 set laststatus=2                                                  " use 2 lines for the status bar
+"set statusline =%F%m%r%h%w\ [ASCII=\%03.3b,0X\%03.3B]            " replace by powerline.vim
 set matchtime=2                                                   " show matching bracket for 0.2 seconds
 set matchpairs+=<:>                                               " specially for html
 " set relativenumber
 
-" Default Indentation
+"---- Default Indentation
 set autoindent
 set smartindent     " indent when
 set tabstop=4       " tab width
@@ -57,6 +63,31 @@ set shiftwidth=4    " indent width
 " set smarttab
 set expandtab       " expand tab to space
 
+"---- use ctags
+set tags +=$HOME/tags
+set tags +=./tags
+"将:tn :tp 映射为 ctrl+n ctrl+p ,方便查看引用
+"use ctrl+n ctrl+p replace :tn :tp. use ctrl+] jump to function define
+"ctrl+p conflict with ctrlp.vim plugin 
+nmap <c-n> :tn<CR>
+nmap <c-p> :tp<CR>
+nmap <c-h> :bp<CR>
+nmap <c-l> :bn<CR>
+nmap <c-k> :bd<CR>
+
+"---- some shortcuts
+"一键编译
+nmap <F9> :wa<CR>:make<CR>:cw<CR><CR>
+" 在选中状态下输入: ;s 可以直接替换
+:vnoremap <Leader>s y:.,$s/<C-R>=escape(@", '\\/.*$^~[]')<CR>/
+" utf8->gbk gbk->utf8
+:command G2u set fileencoding=utf8
+:command U2g set fileencoding=gbk
+"设置高亮当前字符
+nmap \ :exe printf('match IncSearch /\<%s\>/', expand('<cword>')) <CR>
+set updatetime=1000
+autocmd CursorHold * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
+
 autocmd FileType php setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
 autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4 textwidth=120
@@ -65,9 +96,9 @@ autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 textwidth=
 autocmd FileType html,htmldjango,xhtml,haml setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=0
 autocmd FileType sass,scss,css setlocal tabstop=2 shiftwidth=2 softtabstop=2 textwidth=120
 
-" syntax support
+"---- syntax support
 autocmd Syntax javascript set syntax=jquery   " JQuery syntax support
-" js
+"---- js
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
@@ -111,10 +142,14 @@ let g:EasyMotion_leader_key = '<Leader>'
 
 " Tagbar
 let g:tagbar_left=1
-let g:tagbar_width=30
-let g:tagbar_autofocus = 1
+let g:tagbar_width=25
+"let g:tagbar_autofocus = 1
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
+autocmd VimEnter *.py   nested TagbarOpen "auto open tagbar"
+autocmd VimEnter *.cpp  nested TagbarOpen
+autocmd VimEnter *.h  nested TagbarOpen
+autocmd VimEnter *.c  nested TagbarOpen
 " tag for coffee
 if executable('coffeetags')
   let g:tagbar_type_coffee = {
@@ -142,7 +177,7 @@ endif
 
 " Nerd Tree
 let NERDChristmasTree=0
-let NERDTreeWinSize=30
+let NERDTreeWinSize=25
 let NERDTreeChDirMode=2
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
 " let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\~$']
@@ -194,7 +229,12 @@ let g:SuperTabRetainCompletionType=2
 " ctrlp
 set wildignore+=*/tmp/*,*.so,*.o,*.a,*.obj,*.swp,*.zip,*.pyc,*.pyo,*.class,.DS_Store  " MacOSX/Linux
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
-
+"ctrl+p replace by ctrl+o"
+let g:ctrlp_map = '<c-o>'
+" header.vim
+let g:user_company = 'your_company'
+let g:user_name = 'your_name'
+let g:user_email = 'your_email@host.com'
 " Keybindings for plugin toggle
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
@@ -210,10 +250,10 @@ nnoremap <leader>v V`]
 " Useful Functions
 "------------------
 " easier navigation between split windows
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+"nnoremap <c-j> <c-w>j
+"nnoremap <c-k> <c-w>k
+"nnoremap <c-h> <c-w>h
+"nnoremap <c-l> <c-w>l
 
 " When editing a file, always jump to the last cursor position
 autocmd BufReadPost *
