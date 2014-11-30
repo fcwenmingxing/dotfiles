@@ -1,7 +1,10 @@
 source ~/.vim/bundles.vim
 
 " encoding dectection
-set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
+"set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
+set fileencodings=utf-8,gb2312,gb18030,gbk,cp936,latin1
+"fileencoding of create a new file
+set fileencoding=gbk
 
 " enable filetype dectection and ft specific plugin/indent
 filetype plugin indent on
@@ -198,6 +201,7 @@ let g:user_emmet_expandabbr_key='<C-j>'
 " NeoComplCache
 let g:neocomplcache_enable_at_startup=1
 let g:neoComplcache_disableautocomplete=1
+let g:neocomplcache_enable_ignore_case = 1
 "let g:neocomplcache_enable_underbar_completion = 1
 "let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_smart_case=1
@@ -235,6 +239,8 @@ let g:ctrlp_map = '<c-o>'
 let g:user_company = 'your_company'
 let g:user_name = 'your_name'
 let g:user_email = 'your_email@host.com'
+" delimitMate
+let delimitMate_matchpairs = "(:),[:],{:}"
 " Keybindings for plugin toggle
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>

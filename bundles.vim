@@ -41,7 +41,7 @@ Bundle 'nathanaelkane/vim-indent-guides'
 " IDE features
 "--------------
 Bundle 'scrooloose/nerdtree'
-Bundle 'humiaozuzu/TabBar'
+"Bundle 'humiaozuzu/TabBar'
 Bundle 'majutsushi/tagbar'
 Bundle 'mileszs/ack.vim'
 Bundle 'kien/ctrlp.vim'
@@ -110,5 +110,10 @@ Bundle 'a.vim'
 " header.vim :a header is added to the top when a file is created
 "--------------
 Bundle 'fcwenmingxing/header.vim'
+
+" buf bar
+Bundle 'fholgado/minibufexpl.vim'
+" SrcExpl
+"Bundle 'wesleyche/SrcExpl'
 
 filetype plugin indent on     " required!
