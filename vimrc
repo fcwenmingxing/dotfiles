@@ -4,7 +4,7 @@ source ~/.vim/bundles.vim
 "set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 set fileencodings=utf-8,gb2312,gb18030,gbk,cp936,latin1
 "fileencoding of create a new file
-set fileencoding=gbk
+set fileencoding=utf8
 
 " enable filetype dectection and ft specific plugin/indent
 filetype plugin indent on
@@ -40,6 +40,7 @@ let mapleader=";"
 set spr                                                           " vsp left window
 set fdm=indent                                                    " 代码折叠 zi打开/折叠, zm折叠
 set confirm                                                       " prompt when existing from an unsaved file
+set hidden                                                        "允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
 set backspace=indent,eol,start                                    " More powerful backspacing
 set t_Co=256                                                      " Explicitly tell vim that the terminal has 256 colors "
 set mouse=a                                                       " use mouse in all modes
@@ -312,3 +313,21 @@ if has("gui_running")
     map <D-9> 9gt
     map <D-0> :tablast<CR>
 endif
+" Prevent supertab from mapping <tab> to anything.
+let g:SuperTabMappingForward = '<Plug>xpt_void'
+
+" Tell XPTemplate what to fall back to, if nothing matches.
+" Original SuperTab() yields nothing if g:SuperTabMappingForward was set to
+" something it does not know.
+let g:xptemplate_fallback = '<C-r>=XPTwrapSuperTab("n")<CR>'
+
+fun! XPTwrapSuperTab(command) "{{{
+    let v = SuperTab(a:command)
+    if v == ''
+        " Change \<Tab> to whatever you want, when neither XPTemplate or
+        " supertab needs to do anything.
+        return "\<Tab>"
+    else
+        return v
+    end
+endfunction "}}}
