@@ -72,12 +72,14 @@ set tags +=$HOME/tags
 set tags +=./tags
 "将:tn :tp 映射为 ctrl+n ctrl+p ,方便查看引用
 "use ctrl+n ctrl+p replace :tn :tp. use ctrl+] jump to function define
-"ctrl+p conflict with ctrlp.vim plugin 
+"ctrl+p conflict with ctrlp.vim plugin
 nmap <c-n> :tn<CR>
 nmap <c-p> :tp<CR>
-nmap <c-h> :bp<CR>
-nmap <c-l> :bn<CR>
-nmap <c-k> :bd<CR>
+"---- miniBufExplorer
+"let g:miniBufExplBuffersNeeded = 1
+nmap <c-h> :MBEbp<CR>
+nmap <c-l> :MBEbn<CR>
+nmap <c-k> :MBEbd<CR>
 
 "---- some shortcuts
 "一键编译
