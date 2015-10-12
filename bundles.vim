@@ -118,3 +118,6 @@ Bundle 'fholgado/minibufexpl.vim'
 "Bundle 'wesleyche/SrcExpl'
 
 filetype plugin indent on     " required!
+
+
+
