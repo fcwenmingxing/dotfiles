@@ -76,7 +76,7 @@ set tags +=./tags
 nmap <c-n> :tn<CR>
 nmap <c-p> :tp<CR>
 "---- miniBufExplorer
-"let g:miniBufExplBuffersNeeded = 1
+let g:miniBufExplBuffersNeeded = 1
 nmap <c-h> :bp<CR>
 nmap <c-l> :bn<CR>
 nmap <c-k> :MBEbd<CR>
