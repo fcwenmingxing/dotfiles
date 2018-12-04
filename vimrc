@@ -86,6 +86,8 @@ nmap <c-k> :MBEbd<CR>
 nmap <F9> :wa<CR>:make<CR>:cw<CR><CR>
 " 在选中状态下输入: ;s 可以直接替换
 :vnoremap <Leader>s y:.,$s/<C-R>=escape(@", '\\/.*$^~[]')<CR>/
+" 在选中状态下输入: ;f 可以直接查找
+:vnoremap <Leader>f y:/<C-R>=escape(@", '\\/.*$^~[]')<CR>
 " utf8->gbk gbk->utf8
 :command G2u set fileencoding=utf8
 :command U2g set fileencoding=gbk
